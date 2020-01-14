@@ -28,16 +28,18 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override           // Authorization - which access should I give you
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+        //http.csrf().disable()               // csrf - cross site request forgery - can secure PATCH, POST, PUT, DELETE
+                http                        // enable csrf protection
                 .authorizeRequests()    // what access do you have
-                .antMatchers("/").permitAll()   // everyone can see homepage
-                .anyRequest().hasRole("USER")
+                    .antMatchers("/").permitAll()   // everyone can see homepage
+                    .anyRequest().hasRole("USER")
                 .and().formLogin()
-                .loginPage("/login")    //everyone can see login page
-                .permitAll()
-                .and()
-                .logout()
-                .logoutUrl("/logout")
-                .permitAll();
+                    .loginPage("/login")    //everyone can see login page
+                    .defaultSuccessUrl("/dashboard")
+                    .permitAll()
+                    .and()
+                .logout()                   // only POST <form action="/logout" method="post">
+                    .logoutUrl("/logout")
+                    .permitAll();
     }
 }

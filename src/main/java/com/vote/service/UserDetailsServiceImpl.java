@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-@Service            // otherwise spring does not see it
+@Service
 public class UserDetailsServiceImpl implements UserDetailsService {       // object that is implementing in interface
 
     @Autowired

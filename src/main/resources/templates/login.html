@@ -2,21 +2,22 @@
 <html xmlns:th="http://thymeleaf.org">
 <head>
     <title>FreshVotes Login</title>
+    <!--JQuery cdn -> slim minified-->
+    <script
+            src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
+            crossorigin="anonymous">
+
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $("#createAccount").click(function () {
+                window.location.href = "/register";
+            });
+        });
+    </script>
 </head>
-<!--JQuery cdn -> slim minified-->
-<script
-        src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
-        crossorigin="anonymous"></script>
 <body>
-<!--when app is ready (page is loaded) the JQuery can be executed-->
-<script type="text/javascript">
-    $(function () {
-       $("#createAccount").click(function () {          /*CSS - selectors - select the element and do smt with it (id = createAccount)*/
-           window.location.href = "/register"   /*if we go to /register URL is gonna send GET REQUEST */
-       })
-    })
-</script>
 <form action="" method="post">
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
     <fieldset>
@@ -42,7 +43,7 @@
         </p>
         <div>
             <button type="submit" class="btn">Log in</button>
-            <button type="submit" class="btn" id="createAccount">Create Account</button>    <!--id - selector for CSS JQuery-->
+            <button type="button" class="btn" id="createAccount">Create Account</button>
         </div>
     </fieldset>
 </form>

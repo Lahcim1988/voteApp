@@ -10,16 +10,14 @@ import java.util.Set;
 @Table(name = "users")          // the table name in MySql
 public class User {
 
-
     private Long id;
     private String username;
     private String password;
     private String name;
     private Set<Authority> authorities = new HashSet<>();   // authorities needs to be stored in database
-                                                    // comming from security will be deleted
+                                                    // coming from security will be deleted
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }
@@ -50,14 +48,25 @@ public class User {
         this.name = name;
     }
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")     // cascade if we delete user -
-                                                                                        // it should delete all relation records
-                                                                                        // "user" - from Authority User field
+         // cascade if we delete user -
+         // it should delete all relation records         // "user" - from Authority User field
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
     public Set<Authority> getAuthorities() {
         return authorities;
     }
 
     public void setAuthorities(Set<Authority> authorities) {
         this.authorities = authorities;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", authorities=" + authorities +
+                '}';
     }
 }

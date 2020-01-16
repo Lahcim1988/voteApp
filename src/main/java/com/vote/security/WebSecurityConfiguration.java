@@ -45,6 +45,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http                        // enable csrf protection
                 .authorizeRequests()    // what access do you have
                 .antMatchers("/").permitAll()   // everyone can see homepage
+                .antMatchers("/register").permitAll()   // everyone
                 .antMatchers("/admin/**").hasRole("ADMIN")  // ** - has a role ADMIN
                 .anyRequest().hasRole("USER")
                 .and().formLogin()

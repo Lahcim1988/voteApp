@@ -14,8 +14,8 @@ public class User {
     private String username;
     private String password;
     private String name;
-    private Set<Authority> authorities = new HashSet<>();   // authorities needs to be stored in database
-                                                    // coming from security will be deleted
+    private Set<Authority> authorities = new HashSet<>();
+    private Set<Product> products = new HashSet<>();            // product can belong only to one feature
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
@@ -48,8 +48,15 @@ public class User {
         this.name = name;
     }
 
-         // cascade if we delete user -
-         // it should delete all relation records         // "user" - from Authority User field
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, mappedBy = "user")
+    public Set<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(Set<Product> products) {
+        this.products = products;
+    }
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
     public Set<Authority> getAuthorities() {
         return authorities;

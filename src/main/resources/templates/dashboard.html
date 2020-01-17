@@ -4,14 +4,42 @@
 <head>
     <meta charset="UTF-8">
     <title>VoteApp</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
 </head>
 <body>
+<!--
+    create = Http Post
+    read = Http Get
+    update = Http Put
+    delete = Http Delete
+ -->
 
-<h1>VoteApp Dashboard</h1>
+<div class="container" style="margin-top: 1.5em;">
+    <div class="row">
+        <div class="col-8">
 
-<form action="/logout" method="post">
-    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-    <button type="submit">Logout</button>
-</form>
+            <h1>VoteApp Dashboard</h1>
+
+        </div>
+        <div class="col-4 " >
+            <form action="/logout" method="post" class="float-right">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <button type="submit" class="btn btn-secondary">Logout</button>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <form action="/products" method="post">                                                     <!--create-->
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>           <!-- in post is necessary-->
+            <button class="btn btn-primary" id="createProduct">Create a Product</button>
+            </form>
+        </div>
+    </div>
+
+</div>
 </body>
 </html>

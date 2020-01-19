@@ -48,6 +48,7 @@ public class User {
         this.name = name;
     }
 
+    // Lazy - mean is not going to loaded any products until we ask for it
     @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, mappedBy = "user")
     public Set<Product> getProducts() {
         return products;

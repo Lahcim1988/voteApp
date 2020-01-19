@@ -21,19 +21,24 @@ public class ProductController {
     @Autowired
     private ProductRepository productRepo;
 
-    @GetMapping("/products")
-    public String getProducts(ModelMap map){
-        return "product";
-    }
+    // moved to Dashboard View
+    /*@GetMapping("/products")
+    public String getProducts(@AuthenticationPrincipal User user, ModelMap model) {
+        List<Product> products = productRepo.findByUser(user);       // all products from specific user - logged in
+
+        model.put("products", products);
+
+        return "products";          // products
+    }*/
 
     @GetMapping("/products/{productId}")
-    public String getProduct(@PathVariable Long productId, ModelMap model, HttpServletResponse response) throws Exception{
-        Optional<Product> productOpt = productRepo.findById(productId);
+    public String getProduct(@PathVariable Long productId, ModelMap model, HttpServletResponse response) throws Exception {
+        Optional<Product> productOpt = productRepo.findByIdWithUser(productId);
 
-        if(productOpt.isPresent()){
+        if (productOpt.isPresent()) {
             Product product = productOpt.get();
             model.put("product", product);
-        }else {
+        } else {
             Product product = new Product();
             response.sendError(HttpStatus.NOT_FOUND.value(), "Product with id " + productId + " was not found");
             return "product";
@@ -43,21 +48,24 @@ public class ProductController {
     }
 
     @PostMapping("/products/{productId}")                       // @PathVariable productId has to map with {productId}
-    public String saveProduct(@PathVariable Long productId, Product product){  // Binding data from product.html - save product <form action="" method="post>
-                                                                                // saving - product sa have to pass product to method {product.html --> product}
+    public String saveProduct(@PathVariable Long productId, Product product) {  // Binding data from product.html - save product <form action="" method="post>
+        // saving - product sa have to pass product to method {product.html --> product}
         System.out.println(product);
+
+        product = productRepo.save(product);
+
         return "redirect:/products/" + product.getId();                     // posting has to be redirect
     }
 
-    @PostMapping("/products")                       // once we click CreateProduct is going to post and then is redirected to get
-    public String createProduct(@AuthenticationPrincipal User user){        // Authentication is for Spring security otherwise all User attributes will be null
+    @PostMapping("/products")
+    // once we click CreateProduct is going to post and then is redirected to get
+    public String createProduct(@AuthenticationPrincipal User user) {        // Authentication is for Spring security otherwise all User attributes will be null
         Product product = new Product();
 
         product.setPublished(false);
         product.setUser(user);
 
         product = productRepo.save(product);          // return Product
-
 
 
         return "redirect:/products/" + product.getId();                // redirect always with product - go to specific product

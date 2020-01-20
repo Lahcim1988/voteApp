@@ -1,10 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
     <meta charset="UTF-8">
     <title>Vote App Homepage</title>
 </head>
 <body>
-    <h1>Welcome ro Vote App</h1>
+<div class="container">
+    <div class="row" style="margin-top: 2em">
+        <div class="-8">                            <!-- 8 + 4 = 12-->
+            <h1>Welcome to Vote App</h1>
+        </div>
+        <div class="col-4">                         <!-- 4 + 8 = 12-->
+            <button class="btn btn-primary float-right" type="button" id="login">Login</button>
+        </div>
+    </div>
+</div>
+    <!--// not using JQuery &ndash;&gt; JS-->
+    <script type="text/javascript">
+        /*// wwww you my not need jquery - EVENTS*/
+        let loginBtn = document.getElementById('login')    /*// equivalent JQuery  let loginBtn = $("#login")*/
+
+        loginBtn.addEventListener('click', function () {
+            window.location.href = '/login'
+        })
+    </script>
 </body>
 </html>

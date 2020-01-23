@@ -1,25 +1,25 @@
+
 <!DOCTYPE html>
-<html lang="en">
 <html xmlns:th="http://thymeleaf.org">
 <head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <meta charset="UTF-8">
+    <script th:replace="fragments/header :: headerElement">
+       /* This stuff will be replaced with our fragment*/
+    </script>
     <title>Products</title>
 </head>
 <body>
-<div class="container" th:if="${product != null}">          <!-- product is null because we did not add anything -
-                                                                now we should add some adding option in products.html-->
+<div class="container" th:if="${product != null}">
     <h1>Product</h1>
 
     <form action="" method="post">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-        <input type="hidden" th:field="${product.id}}"/>        <!-- we need update product id -->
+        <input type="hidden" th:field="${product.id}"/>
         <input type="hidden" th:field=${product.user}/>
 
         <div class="form-group row">
-            <label for="name" class="col-12 col-sm-3 col-md-2 col-form-label">Name: </label>
+            <label type="name" class="col-12 col-sm-3 col-md-2 col-form-label">Name:</label>
             <div class="col-12 col-sm-9 col-md-10">
-                <input type="text" class="form-controller" th:field="${product.name}">
+                <input type="text" class="form-control" th:field="${product.name}" />
             </div>
         </div>
 
@@ -27,13 +27,9 @@
             <input type="checkbox" class="custom-control-input" th:field="${product.published}">
             <label class="custom-control-label" for="published">is published</label>
         </div>
-        <div th:text="|Is product published: ${product.published}|">
-            Here's the content of the div text
-        </div>
 
-        <button class="btn btn-primary">Save Product</button>
+        <button class="btn btn-primary btn-lg">Save Product</button>
     </form>
 </div>
 </body>
-</html>
 </html>
